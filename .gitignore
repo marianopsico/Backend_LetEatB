@@ -1,0 +1,30 @@
+# Dependencias de Node.js
+/node_modules/
+
+# Archivo de configuración de desarrollo local
+/config/config.json
+
+# Archivo de registro de errores
+/logs/
+
+# Archivos de respaldo y temporales
+*.bak
+*.swp
+*.tmp
+
+# Archivos de registro de errores generados por Sequelize
+/sequelize-logs/
+
+# Archivos de entorno
+.env
+
+# Archivos de construcción
+/build/
+/dist/
+
+# Dependencias específicas de los editores de código
+.vscode/
+.idea/
+
+# Archivo de bloqueo del sistema
+package-lock.json
