@@ -4,7 +4,7 @@ import connectionDb from '../connectionDb/connectionDb.js'
 class User extends Model {}
 
 User.init({
-    username: {
+    email: {
         type: DT.STRING,
         unique: true,
         allowNull: false,
@@ -13,17 +13,12 @@ User.init({
         type: DT.STRING,
         allowNull: false,
         },
-        email: {
+        phone: {
           type: DT.STRING,
-          allowNull: false,
         },
-        // phone: {
-        //   type: DT.STRING,
-        //   allowNull: false,
-        // },
-        // avatar: {
-        //   type: DT.STRING,
-        // },
+        avatar: {
+          type: DT.STRING,
+        },
     }, {
       sequelize: connectionDb, // We need to pass the connection instance
       modelName: 'User' // We need to choose the model name

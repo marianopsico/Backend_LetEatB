@@ -8,6 +8,8 @@ import Restaurant from "./Models/Restaurant.js";
 const port= process.env.SERVER_PORT; // el process es de NODE
 const app = express();
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
 app.use(routes);
 
 await connectionDb.sync( { force: true } ).then(() => {

@@ -4,11 +4,11 @@ import { body, validationResult } from 'express-validator';
 import moment from 'moment';
 import jwt from 'jwt-simple';
 import  User  from '../Models/User.js';
+
 const userRoutes = Router();
 
 userRoutes.post('/register', [
   // Express Validator para validar los campos requeridos
-  body('username').notEmpty().withMessage('El nombre es requerido'),
   body('password').notEmpty().withMessage('La contraseña es requerida').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
   body('email').notEmpty().withMessage('El correo electrónico es requerido').isEmail().withMessage('El correo electrónico no es válido')
 ], async (req, res) => {
@@ -19,7 +19,7 @@ userRoutes.post('/register', [
   }
 
   // Extrae los datos del cuerpo de la solicitud
-  const { username, email, password } = req.body;
+  const { email, password, phone, avatar  } = req.body;
 
   try {
     // Verifica si el usuario ya existe en la base de datos
@@ -29,9 +29,7 @@ userRoutes.post('/register', [
     }
 
     // Crea un nuevo usuario utilizando el modelo de Sequelize
-    user = await User.create({ username, password, email });
-
-    // Puedes realizar otras acciones aquí, como enviar un correo electrónico de bienvenida, etc.
+    user = await User.create({ email, password, phone, avatar });
 
     // Retorna una respuesta exitosa
     return res.status(201).json({ message: 'Usuario registrado exitosamente' });
@@ -43,9 +41,9 @@ userRoutes.post('/register', [
 
 
 userRoutes.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     
-    User.findOne({ where: { username } })
+    User.findOne({ where: { email } })
     .then((user) => {
       if (user) {
         // Comprobar si la contraseña es válida utilizando bcrypt
