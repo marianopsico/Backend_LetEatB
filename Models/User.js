@@ -1,5 +1,6 @@
 import { Model, DataTypes as DT } from 'sequelize';
-import connectionDb from '../connectionDb/connectionDb.js'
+import connectionDb from '../connectionDb/connectionDb.js';
+import bcrypt from 'bcrypt';
 
 class User extends Model {}
 
@@ -12,6 +13,11 @@ User.init({
       password: {
         type: DT.STRING,
         allowNull: false,
+          set(value) {
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(value, salt);
+            this.setDataValue('password', hashedPassword);
+          },
         },
         phone: {
           type: DT.STRING,
