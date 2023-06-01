@@ -17,13 +17,13 @@ User.init({
           type: DT.STRING,
           allowNull: false,
         },
-        phone: {
-          type: DT.STRING,
-          allowNull: false,
-        },
-        avatar: {
-          type: DT.STRING,
-        },
+        // phone: {
+        //   type: DT.STRING,
+        //   allowNull: false,
+        // },
+        // avatar: {
+        //   type: DT.STRING,
+        // },
     }, {
       sequelize: connectionDb, // We need to pass the connection instance
       modelName: 'User' // We need to choose the model name

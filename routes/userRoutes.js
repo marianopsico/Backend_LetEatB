@@ -1,29 +1,46 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
-import { check, validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import moment from 'moment';
 import jwt from 'jwt-simple';
 import  User  from '../Models/User.js';
 const userRoutes = Router();
 
-userRoutes.post('/register',[
-    check('username', 'El nombre de usuario es obligatorio').not().isEmpty(),
-    check('password', 'El password es obligatorio').not().isEmpty(),
-    check('email', 'El email debe ser valido').isEmail(),
-    check('phone', 'El telefono no puede estar vacio').not().isEmpty(),
+userRoutes.post('/register', [
+  // Express Validator para validar los campos requeridos
+  body('username').notEmpty().withMessage('El nombre es requerido'),
+  body('password').notEmpty().withMessage('La contraseña es requerida').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+  body('email').notEmpty().withMessage('El correo electrónico es requerido').isEmail().withMessage('El correo electrónico no es válido')
+], async (req, res) => {
+  // Verifica si hay errores de validación
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
 
-],
- async (req, res) => {
+  // Extrae los datos del cuerpo de la solicitud
+  const { username, email, password } = req.body;
 
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(422).json( { errors: errors.array()} )
+  try {
+    // Verifica si el usuario ya existe en la base de datos
+    let user = await User.findOne({ where: { email } });
+    if (user) {
+      return res.status(409).json({ message: 'El usuario ya está registrado' });
     }
 
-    req.body.password = bcrypt.hashSync(req.body.password, 10)
-    const user= await User.create(req.body);
-    res.json(user)
+    // Crea un nuevo usuario utilizando el modelo de Sequelize
+    user = await User.create({ username, password, email });
+
+    // Puedes realizar otras acciones aquí, como enviar un correo electrónico de bienvenida, etc.
+
+    // Retorna una respuesta exitosa
+    return res.status(201).json({ message: 'Usuario registrado exitosamente' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Ha ocurrido un error en el servidor' });
+  }
 });
+
 
 userRoutes.post('/login', async (req, res) => {
     const { username, password } = req.body;
