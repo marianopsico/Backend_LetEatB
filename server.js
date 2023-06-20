@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(routes);
 
 await connectionDb
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     app.listen(port, () => {
       console.log("server ok http://localhost:8080");
