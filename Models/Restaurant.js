@@ -4,35 +4,29 @@ import connectionDb from '../connectionDb/connectionDb.js'
 class Restaurant extends Model {}
 
 Restaurant.init({
-    description: {
+    title: {
         type: DT.STRING,
+        allowNull: false, 
       },
-      email: {
+    distancia: {
+      type: DT.DOUBLE
+    },
+      wap: {
         type: DT.STRING,
         allowNull: false,
       },
-      phone: {
-        type: DT.STRING,
-        allowNull: false,
+      coordinate: {
+        type: DT.JSON,
+        allowNull: false, 
       },
-      images: {
-        type: DT.STRING,
-      },
-      latitude: {
-        type: DT.FLOAT,
-        allowNull: false,
-      },
-      latitudeDelta: {
-        type: DT.FLOAT,
-        allowNull: false,
-      },
-      longitude: {
-        type: DT.FLOAT,
-        allowNull: false,
-      },
+      stateId: {
+        type: DT.INTEGER,
+        defaultValue: 1,
+      }
+
     }, {
-      sequelize: connectionDb, // We need to pass the connection instance
-      modelName: 'Restaurant' // We need to choose the model name
+      sequelize: connectionDb, 
+      modelName: 'Restaurant' 
     });
     
 export default Restaurant;

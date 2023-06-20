@@ -1,31 +1,15 @@
 import { Router } from "express";
 import  Restaurant  from '../Models/Restaurant.js';
+import RestaurantController from "../controller/RestaurantController.js";
 
 const restaurantRoutes = Router();
 
-restaurantRoutes.get("/", async (req, res) =>{
+const restaurantController = new RestaurantController();
 
-    const restaurants = await Restaurant.findAll()
-    res.json(restaurants)
-})
-
-restaurantRoutes.post('/', async (req, res) => {
-    const restaurant = await Restaurant.create(req.body);
-    res.json(restaurant);
-});
-
-restaurantRoutes.put('/:restaurantID', async (req, res) => {
-    await Restaurant.update(req.body, {
-        where: { id: req.params.restaurantID }
-    })
-    res.json( { success: 'Se ha modificado!' });
-})
-
-restaurantRoutes.delete('/:restaurantID', async (req,res) => {
-    await Restaurant.destroy({
-        where: { id: req.params.restaurantID }
-    });
-    res.json({ success: 'Se ha borrado el restaurant!' })
-})
+restaurantRoutes.get("/", restaurantController.getAllRestaurants)
+restaurantRoutes.get("/:id", restaurantController.getRestaurantById);
+restaurantRoutes.post('/', restaurantController.createRestaurant);
+restaurantRoutes.put('/:id', restaurantController.updateRestaurant)
+restaurantRoutes.delete('/:id', restaurantController.deleteRestaurantById)
 
 export default restaurantRoutes;

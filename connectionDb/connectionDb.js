@@ -14,7 +14,6 @@ const connectionDb = new Sequelize(database, username, password, {
     dialect,
   });
 
-
   try {
     await connectionDb.authenticate();
         console.log('Connection has been established successfully.');
