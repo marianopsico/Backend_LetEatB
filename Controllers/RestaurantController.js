@@ -1,5 +1,5 @@
 import { body, validationResult } from "express-validator";
-import { Restaurant, State } from "../Models/index.js";
+import { State, Restaurant } from "../Models/index.js";
 
 class RestaurantController {
   constructor() {}
@@ -8,6 +8,22 @@ class RestaurantController {
     try {
       const result = await Restaurant.findAll({
         attributes: ["id", "title", "distancia", "wap", "coordinate"],
+        order: [["distancia", "ASC"]],
+      });
+      if (result.length === 0)
+        throw new Error("No se encontraron restaurantes");
+      res.send({ success: true, message: "Restaurantes encontrados", result });
+    } catch (error) {
+      res.status(400).send({ success: false, result: error.message });
+    }
+  };
+  getAllActiveRestaurants = async (req, res, next) => {
+    try {
+      const result = await Restaurant.findAll({
+        attributes: ["id", "title", "distancia", "wap", "coordinate"],
+        where: {
+          stateId: 1
+        },
         order: [["distancia", "ASC"]],
       });
       if (result.length === 0)

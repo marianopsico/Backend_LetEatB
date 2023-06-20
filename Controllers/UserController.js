@@ -1,7 +1,8 @@
 import { validationResult, check } from 'express-validator';
-import { User, Role} from "../Models/index.js";
+import { Role, User } from "../Models/index.js";
 import bcrypt from 'bcrypt';
-import { generateToken } from '../Utils/authUtils.js';
+import { generarToken } from "../utils/token.js";
+
 
 class UserController {
     constructor() {}
@@ -33,10 +34,19 @@ class UserController {
           },
          attributes: ["id", "email", "phone", "roleId"],
         });
-        if (!result) throw new Error("No se encontro el usuario");
+        if (!result) {
+          const error = new Error("No se encontro el usuario");
+          error.status = 400
+          throw error
+        } 
+
         res.send({ success: true, message: "Usuario encontrado", result });
       } catch (error) {
-        res.status(400).send({ success: false, result: error.message });
+          // res.status(400).send({ 
+          //   success: false, 
+          //   result: error.message 
+          // });
+          next(error);
       }
     };
     createUser = async (req, res, next) => {
@@ -82,11 +92,14 @@ class UserController {
             roleId
           });
           if (!result.dataValues) {
-            throw new Error("No se pudo crear el usuario");
+            const error = new Error("No se pudo crear el usuario");
+            error.status(400);
+            error.throw;
           }
           res.status(200).send({ success: true, message: "Usuario creado con éxito" });
         } catch (error) {
-          res.status(400).send({ success: false, result: error.message });
+          //res.status(400).send({ success: false, result: error.message });
+          next(error)
         }
     };
     updateUserById = async (req, res, next) => {
@@ -178,24 +191,61 @@ class UserController {
     };
     login = async (req, res, next) => {
       try {
+        
         const { email, password } = req.body;
+        
         const result = await User.findOne({
           where: { email },
         });
-        if (!result) throw new Error("Credenciales incorrectas");
-  
-        const compare = await result.validatePassword(password, result.password);
-        if (!compare) throw new Error("Credenciales incorrectas");
 
-        const token = generateToken(result.id);
+        if (!result) {
+          const error =  new Error("Credenciales incorrectas");
+          error.status = 400;
+          throw error;
+        }
+       
+        const compare = await result.validatePassword(password, result.password);
+        if (!compare) {
+          const error = new  Error("Credenciales incorrectas");
+          error.status = 400
+          throw error
+        }
+        
+        const payload = {
+          id: result.id,
+          email: result.email,
+          roleId: result.roleId
+        };
+  
+        const token = generarToken(payload);
+        res.cookie("token", token);
 
         res
           .status(200)
-          .send({ success: true, token, message: "Usuario logueado con exito" });
+          .send({ success: true, token, payload, message: "Usuario logueado con exito" });
+          
       } catch (error) {
-        res.status(400).send({ success: false, result: error.message });
+        //res.status(400).send({ success: false, result: error.message });
+        next(error)
       }
     };
+
+    me = (req, res, next) => {
+      const {user} = req
+       res.status(200).send({
+         success: true,
+         message: "Usuario ok",
+         result: user,
+       });
+    };
+   
+     logout=(req, res, next)=>{
+       res.cookie("token", "");
+       res.status(200).send({
+         success: true,
+         message: "Usuario deslogueado",
+       });
+    }
 
 }
 

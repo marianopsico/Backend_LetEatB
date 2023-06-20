@@ -33,7 +33,7 @@ const restaurantSeed = async () => {
   try {
     const restaurants = [];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 30; i++) {
       const restaurant = generateRandomRestaurant();
       const distance = geolib.getDistance(myLocation, restaurant.coordinate) / 1000; // Calcula la distancia en kilómetros
       restaurant.distancia = distance.toFixed(2); // Redondea la distancia a 2 decimales

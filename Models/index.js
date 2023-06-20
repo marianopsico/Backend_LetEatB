@@ -20,4 +20,4 @@ Restaurant.belongsTo(State, {
   as: "state"
 });
 
-export { Role, State, Restaurant, User };
+export {State, Role, User, Restaurant };
