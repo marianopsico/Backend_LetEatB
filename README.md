@@ -89,18 +89,18 @@ Puedes encontrar los controladores, modelos y rutas en el directorio src.
 ## Estructura de directorios
 
 ├── src/
-│   ├── config/                 # Configuraciones del proyecto
-│   ├── connectionDb/           # La conexion con la base de datos utilizando sequelize
-│   ├── controllers/            # Controladores que manejan la lógica de la API
-│   ├── middlewares/            # Validacion de datos de usuarios y restaurantes, validacion de logueo, de usuarios administradores y usuarios logueados
-│   ├── models/                 # Modelos de datos para interactuar con la base de datos
-│   ├── routes/                 # Definición de rutas y endpoints de la API
-│   ├── seed/                   # Directorio de los seeds
-│   ├── utils/                  # Funcion para calcular la distancia en KM entre dos ubicaciones y funcion para generar token
-│   └── server.js               # Archivo principal del proyecto
-├── .env.example                # Archivo modelo para crear el archivo de configuración del entorno
-├── package.json                # Información del proyecto y dependencias
-└── README.md                   # Documentación del proyecto
+│   ├── config/                 # Configuraciones del proyecto        
+│   ├── connectionDb/           # La conexion con la base de datos utilizando sequelize        
+│   ├── controllers/            # Controladores que manejan la lógica de la API        
+│   ├── middlewares/            # Validacion de datos de usuarios y restaurantes,del loguin, de usuarios administradores y usuarios logueados           
+│   ├── models/                 # Modelos de datos para interactuar con la base de datos        
+│   ├── routes/                 # Definición de rutas y endpoints de la API        
+│   ├── seed/                   # Directorio de los seeds        
+│   ├── utils/                  # Funcion para calcular la distancia en KM entre dos ubicaciones y funcion para generar token        
+│   └── server.js               # Archivo principal del proyecto        
+├── .env.example                # Archivo modelo para crear el archivo de configuración del entorno        
+├── package.json                # Información del proyecto y dependencias        
+└── README.md                   # Documentación del proyecto        
 
 
 
