@@ -72,12 +72,12 @@ Entidad users:
 
 Entidad restaurants, todas las siguientes rutas requieren que el usuario sea un administrador:
 
-GET /restaurants/: Obtiene una lista de todos los restaurantes registrados.
-GET /restaurants/active: Obtiene una lista de todos los restaurantes Activos registrados.
-GET /restaurants/:id: Obtiene los detalles de un restaurante específico según su ID.
-POST /restaurants/:  Se utiliza para crear un nuevo restaurante
-PUT /restaurants/:id: se utiliza para actualizar los detalles de un restaurante existente según su ID.
-DELETE /restaurants/:id: Elimina un restaurante específico según su ID.
+- GET /restaurants/: Obtiene una lista de todos los restaurantes registrados.
+- GET /restaurants/active: Obtiene una lista de todos los restaurantes Activos registrados.
+- GET /restaurants/:id: Obtiene los detalles de un restaurante específico según su ID.
+- POST /restaurants/:  Se utiliza para crear un nuevo restaurante
+- PUT /restaurants/:id: se utiliza para actualizar los detalles de un restaurante existente según su ID.
+- DELETE /restaurants/:id: Elimina un restaurante específico según su ID.
 
 Asegúrate de enviar las solicitudes adecuadas con los datos requeridos en el cuerpo de la solicitud y/o los parámetros de la URL.
 
