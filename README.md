@@ -88,7 +88,7 @@ Puedes encontrar los controladores, modelos y rutas en el directorio src.
 
 ## Estructura de directorios
 
-├── src/
+├── src/        
 │   ├── config/                 # Configuraciones del proyecto        
 │   ├── connectionDb/           # La conexion con la base de datos utilizando sequelize        
 │   ├── controllers/            # Controladores que manejan la lógica de la API        
