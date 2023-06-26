@@ -30,14 +30,14 @@ Asegúrate de tener instalado lo siguiente:
 2. Abre el archivo `.env` en un editor de texto.
 3. Completa el archivo `.env` con la siguiente información:
 
-    SERVER_PORT = 8080
-    DATABASE = tu_base_de_datos
-    DB_HOST = localhost
-    DB_USERNAME = tu_usuario
-    DB_PASSWORD = tu_contraseña
-    DB_PORT = 3306
-    DB_DIALECT = mysql
-    SECRET_KEY = tu_frase_secreta
+    - SERVER_PORT = 8080        
+    - DATABASE = tu_base_de_datos        
+    - DB_HOST = localhost        
+    - DB_USERNAME = tu_usuario        
+    - DB_PASSWORD = tu_contraseña                
+    - DB_PORT = 3306        
+    - DB_DIALECT = mysql        
+    - SECRET_KEY = tu_frase_secreta        
 
 4. Guarda el archivo `.env`.
    
