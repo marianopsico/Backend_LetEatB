@@ -4,7 +4,6 @@ import userRoutes from "./userRoutes.js";
 
 const routes = Router();
 
-//TODO: implementar middlewares
 routes.use("/restaurants", restaurantRoutes);
 routes.use("/users", userRoutes);
 

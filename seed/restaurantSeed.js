@@ -1,7 +1,4 @@
 import { Restaurant } from "../Models/index.js";
-import geolib from 'geolib';
-
-const myLocation = { latitude: -34.59013068218553, longitude: -58.38129205182199 }; // Tu ubicación actual, ajusta las coordenadas según corresponda
 
 const generateRandomCoordinate = (min, max) => {
   return Math.random() * (max - min) + min;
@@ -19,12 +16,11 @@ const generateRandomRestaurant = () => {
     latitude: parseFloat(latitude.toFixed(15)),
     longitude: parseFloat(longitude.toFixed(15)),
   };
-  
+
   return {
     title: randomName,
-    distancia: null, // Inicialmente la distancia es null
     wap: randomWap,
-    coordinate, 
+    coordinate,
     stateId: randomStateId
   };
 };
@@ -35,16 +31,14 @@ const restaurantSeed = async () => {
 
     for (let i = 0; i < 30; i++) {
       const restaurant = generateRandomRestaurant();
-      const distance = geolib.getDistance(myLocation, restaurant.coordinate) / 1000; // Calcula la distancia en kilómetros
-      restaurant.distancia = distance.toFixed(2); // Redondea la distancia a 2 decimales
       restaurants.push(restaurant);
     }
 
     await Restaurant.bulkCreate(restaurants);
+    console.log('Restaurantes creados exitosamente');
   } catch (error) {
     console.log(error.message);
   }
 };
 
 export default restaurantSeed;
-

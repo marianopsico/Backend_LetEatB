@@ -25,6 +25,10 @@ User.init(
     salt: {
       type: DT.STRING,
     },
+    coordinate: {
+      type: DT.JSON,
+      allowNull: false,
+    },
     phone: {
       type: DT.STRING,
     },

@@ -8,9 +8,6 @@ Restaurant.init({
         type: DT.STRING,
         allowNull: false, 
       },
-    distancia: {
-      type: DT.DOUBLE
-    },
       wap: {
         type: DT.STRING,
         allowNull: false,
